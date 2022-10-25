@@ -1,0 +1,25 @@
+$blue : #47B5FF;
+$lightBlue : #DFF6FF;
+$darkBlue : #06283D;
+$cyan : #256D85;
+
+.wrapper{
+    width: 100%;
+    min-height: 75px;
+    background-color: darkBlue;   
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    h1 {
+        color: white;
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+    h2 {
+        color: white;
+        font-size: 18px;
+        margin-bottom: 0px;
+    }
+}

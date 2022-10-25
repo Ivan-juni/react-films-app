@@ -1,3 +1,10 @@
+export interface IResponse {
+    page: number,
+    results: IFilm[],
+    total_pages: number,
+    total_results: number      
+}
+
 export interface IFilm {
     adult: boolean;
     backdrop_path: string;
@@ -13,4 +20,12 @@ export interface IFilm {
     video: boolean;
     vote_average: number;
     vote_count: number;
+}
+
+interface Genre {
+    id: number,
+    name: string
+}
+export interface IGenre {
+    genres: Genre[]
 }

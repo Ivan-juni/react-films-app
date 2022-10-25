@@ -1,0 +1,69 @@
+$blue : #47B5FF;
+$lightBlue : #DFF6FF;
+$darkBlue : #06283D;
+$cyan : #256D85;
+
+.wrapper {
+    width: 100%;
+    height: 100%;
+    padding: 20px 20px 60px 20px;
+
+    .film__body {
+        display: flex;
+        gap: 40px;
+        color: black;
+    }
+
+    .film__info {
+        max-width: 370px;
+        .genres{
+            display: flex;
+            gap: 20px;
+            list-style-type: none;
+            font-size: 18px;
+            font-weight: 700;
+        }
+    }
+
+    .overview {
+        margin-top: 20px;
+        color: black;
+        .caption{
+            font-size: 24px;
+            font-weight: 700;
+        }
+        .text {
+            font-size: 18px;
+            font-weight: 500;
+        }
+    }
+
+    @media (max-width: 992px) {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    @media (max-width: 735px) {
+        .film__body{
+            flex-direction: column;
+            align-items: center;
+    
+            .poster {
+                width: 400px;
+            }
+        }
+
+        .overview {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+    @media (max-width: 450px) {
+        .film__body{
+            .poster {
+                width: 342px;
+            }
+        }
+    }
+}
