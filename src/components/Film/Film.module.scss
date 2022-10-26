@@ -7,7 +7,10 @@ $cyan : #256D85;
     max-width: 300px;
     max-height: 450px;
     background-color: white;
-
+    &:hover{
+        transition: 0.3s;
+        transform: scale(1.05);
+    }
     .poster {
         width: 100%;
         &:hover {
@@ -27,12 +30,13 @@ $cyan : #256D85;
             display: none;
             width: 300px;
             height: 450px;
+            transition: 0.3s;
             .title {
                 font-size: 24px;
                 color: darkblue;
                 text-align: center;
             }
-            .add__favotire{
+            .add__favorite{
                 border: none;
                 background-color: transparent;
                 .favorite__thumb{

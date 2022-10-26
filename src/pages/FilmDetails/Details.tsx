@@ -1,11 +1,14 @@
 import React from "react";
 import { useGetFilmGenresQuery } from "../../api/film.api";
-import { useAppSelector } from "../../hooks/redux";
+import { useActions, useAppSelector } from "../../hooks/redux";
+import { checkIfExists } from "../../utils/checkIfExists.util";
 import styles from "./Details.module.scss";
+import starEmptyImage from "../../assets/icons/star-empty.svg";
+import starYellowImage from "../../assets/icons/star-yellow.svg";
 
 const Details = () => {
-  const { film } = useAppSelector((state: any) => state);
-
+  const { film, favorite_films } = useAppSelector((state) => state.film);
+  const { addToFavorite, removeFromFavorite } = useActions();
   const { data } = useGetFilmGenresQuery();
 
   const modifyReleaseDate = () => {
@@ -29,16 +32,46 @@ const Details = () => {
     return genreNames;
   };
 
+  const onFavoriteAddClick = (e: any) => {
+    e.stopPropagation();
+    addToFavorite(film);
+  };
+  const onFavoriteRemoveClick = (e: any) => {
+    e.stopPropagation();
+    removeFromFavorite({ id: film.id });
+  };
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.film__body}>
-        <img
-          src={`http://image.tmdb.org/t/p/w342${film.backdrop_path}`}
-          alt="film_poster"
-          className={styles.poster}
-        />
+        <div className={styles.film__image}>
+          <img
+            src={`http://image.tmdb.org/t/p/w342${film.backdrop_path}`}
+            alt="film_poster"
+            className={styles.poster}
+          />
+        </div>
         <div className={styles.film__info}>
-          <h1 className={styles.title}>{film.original_title}</h1>
+          <div className={styles.film__title}>
+            <h1 className={styles.title}>{film.title}</h1>
+            <button className={styles.add__favorite}>
+              {checkIfExists(film, favorite_films) ? (
+                <img
+                  src={starYellowImage}
+                  className={styles.favorite__thumb}
+                  alt="add__favorite"
+                  onClick={onFavoriteRemoveClick}
+                />
+              ) : (
+                <img
+                  src={starEmptyImage}
+                  className={styles.favorite__thumb}
+                  alt="add__favorite"
+                  onClick={onFavoriteAddClick}
+                />
+              )}
+            </button>
+          </div>
           <h3 className={styles.popularity}>
             Popularity: <span>{film.popularity}</span>
           </h3>
@@ -55,7 +88,6 @@ const Details = () => {
       </div>
       <div className={styles.overview}>
         <span className={styles.caption}>Film overview</span>
-        <br></br>
         <span className={styles.text}>{film.overview}</span>
       </div>
     </div>

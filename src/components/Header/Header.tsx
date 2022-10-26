@@ -1,8 +1,11 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { useAppSelector } from "../../hooks/redux";
 import styles from "./Header.module.scss";
 
 const Header = () => {
+  const { favorite_films } = useAppSelector((state) => state.film);
+
   return (
     <div className={styles.wrapper}>
       <nav className="navbar navbar-expand-lg">
@@ -43,7 +46,8 @@ const Header = () => {
                 }
                 to="/Favorite"
               >
-                Favorite films
+                <span>Favorite films</span>
+                <span className={styles.total}> [{favorite_films.length}]</span>
               </NavLink>
             </li>
           </ul>
