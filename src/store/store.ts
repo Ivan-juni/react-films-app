@@ -1,4 +1,4 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import { filmApi } from '../api/film.api';
 import { filmReducer } from "./slices/film.slice";
 import storage from "redux-persist/lib/storage";
@@ -19,11 +19,14 @@ const rootReducer = combineReducers({
 // redux-persist 
 const pesistedReducer = persistReducer(persistConfig, rootReducer);
 
+const customizedMiddleware = getDefaultMiddleware({
+  serializableCheck: false
+}).concat(filmApi.middleware)
+
 export const setupStore = () => {
     return configureStore({
         reducer: pesistedReducer, // был rootReducer, заменил на persistedReducer
-        middleware: (getDefaultMiddleware) => 
-            getDefaultMiddleware().concat(filmApi.middleware)
+        middleware: customizedMiddleware
     })
 }
 
