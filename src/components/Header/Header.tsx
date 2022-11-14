@@ -1,40 +1,50 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
-import { useAppSelector } from "../../hooks/redux";
-import styles from "./Header.module.scss";
+import React from 'react'
+import { NavLink } from 'react-router-dom'
+import { useAppSelector } from '../../hooks/redux'
+import styles from './Header.module.scss'
+import { useState } from 'react'
 
 const Header = () => {
-  const { favorite_films } = useAppSelector((state) => state.film);
+  const { favorite_films } = useAppSelector((state) => state.film)
+  const [isActive, setIsActive] = useState(false)
+
+  const handleClick = () => {
+    // 👇️ toggle isActive state on click
+    setIsActive((current) => !current)
+  }
 
   return (
     <div className={styles.wrapper}>
-      <nav className="navbar navbar-expand-lg">
-        <NavLink className={styles.brand} to="/home">
+      <nav className={styles.navbar}>
+        <NavLink className={styles.brand} to='/home'>
           FILMS APP
         </NavLink>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-          id={styles.customButtonToggler}
+        <div
+          className={
+            isActive
+              ? `${styles.burger__button} ${styles._active}`
+              : `${styles.burger__button}`
+          }
+          onClick={handleClick}
         >
-          <span
-            className="navbar-toggler-icon"
-            id={styles.customToggler}
-          ></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarNav">
+          <span></span>
+        </div>
+
+        <div
+          className={
+            isActive
+              ? `${styles.nav__body} ${styles._active}`
+              : `${styles.nav__body}`
+          }
+          id='navbarNav'
+        >
           <ul className={styles.nav__items} id={styles.navItems}>
             <li className={styles.nav__item}>
               <NavLink
                 className={(navData) =>
                   navData.isActive ? styles.active : styles.nav__link
                 }
-                to="/home"
+                to='/home'
               >
                 Home
               </NavLink>
@@ -44,7 +54,7 @@ const Header = () => {
                 className={(navData) =>
                   navData.isActive ? styles.active : styles.nav__link
                 }
-                to="/Favorite"
+                to='/Favorite'
               >
                 <span>Favorite films</span>
                 <span className={styles.total}> [{favorite_films.length}]</span>
@@ -54,7 +64,7 @@ const Header = () => {
         </div>
       </nav>
     </div>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

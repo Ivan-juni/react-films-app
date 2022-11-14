@@ -15,8 +15,3 @@ code {
     monospace;
 }
 
-.navbar .show ul, .navbar .collapsing ul{
-  display: flex;
-  flex-direction: column;
-  padding-left: 0px;
-}

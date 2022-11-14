@@ -11,7 +11,7 @@ $cyan : #256D85;
     .film__body {
         display: flex;
         gap: 40px;
-        color: black;
+        color: $darkBlue;
         .poster {
             width: 100%;
         }
