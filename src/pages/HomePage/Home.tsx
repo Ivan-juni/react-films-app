@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import { useGetFilmsQuery } from "../../api/film.api";
-import { Pagination } from "antd";
-import { IFilm } from "../../models/film.types";
-import Film from "../../components/Film/Film";
-import "antd/dist/antd.css";
-import styles from "./Home.module.scss";
+import React, { useState } from 'react'
+import { useGetFilmsQuery } from '../../api/film.api'
+import { Pagination } from 'antd'
+import Film from '../../components/Film/Film'
+import 'antd/dist/antd.css'
+import styles from './Home.module.scss'
+import { IFilm } from '../../models/film.type'
 
 const Home: React.FC = () => {
-  const [page, setPage] = useState<number>(1);
+  const [page, setPage] = useState<number>(1)
 
-  const { data: films, isLoading, error } = useGetFilmsQuery(page);
+  const { data: films, isLoading, error } = useGetFilmsQuery(page)
 
   return (
     <div className={styles.wrapper}>
@@ -26,7 +26,7 @@ const Home: React.FC = () => {
       </div>
       <div className={styles.films}>
         {isLoading ? (
-          "Loading..."
+          'Loading...'
         ) : error ? (
           <div className={styles.error}>Error has occured...</div>
         ) : (
@@ -47,7 +47,7 @@ const Home: React.FC = () => {
         />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

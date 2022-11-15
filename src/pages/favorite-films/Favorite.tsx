@@ -1,28 +1,28 @@
-import { Pagination } from "antd";
-import React, { useEffect, useState } from "react";
-import Film from "../../components/Film/Film";
-import { useAppSelector } from "../../hooks/redux";
-import { IFilm } from "../../models/film.types";
-import { paginate } from "../../utils/pagination.util";
-import styles from "./Favorite.module.scss";
+import { Pagination } from 'antd'
+import React, { useEffect, useState } from 'react'
+import Film from '../../components/Film/Film'
+import { IFilm } from '../../models/film.type'
+import { useAppSelector } from '../../hooks/redux'
+import { paginate } from '../../utils/pagination.util'
+import styles from './Favorite.module.scss'
 
 const Favorite: React.FC = () => {
   // pagination
-  const [paginationState, setPaginationState] = useState<IFilm[]>([]);
-  const [page, setPage] = useState<number>(1);
+  const [paginationState, setPaginationState] = useState<IFilm[]>([])
+  const [page, setPage] = useState<number>(1)
 
-  const { favorite_films } = useAppSelector((state) => state.film);
+  const { favorite_films } = useAppSelector((state) => state.film)
 
   // Pagnation page change
   const onHandleChange = (page: number) => {
-    setPaginationState(paginate(favorite_films, 3, page));
-    setPage(page);
-  };
+    setPaginationState(paginate(favorite_films, 3, page))
+    setPage(page)
+  }
 
   useEffect(() => {
     // pagination
-    setPaginationState(paginate(favorite_films, 3, page));
-  }, [favorite_films.length]);
+    setPaginationState(paginate(favorite_films, 3, page))
+  }, [favorite_films.length])
 
   return (
     <div className={styles.wrapper}>
@@ -49,7 +49,7 @@ const Favorite: React.FC = () => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Favorite;
+export default Favorite

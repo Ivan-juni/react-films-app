@@ -1,45 +1,49 @@
-import React from "react";
-import { useGetFilmGenresQuery } from "../../api/film.api";
-import { useActions, useAppSelector } from "../../hooks/redux";
-import { checkIfExists } from "../../utils/checkIfExists.util";
-import styles from "./Details.module.scss";
-import starEmptyImage from "../../assets/icons/star-empty.svg";
-import starYellowImage from "../../assets/icons/star-yellow.svg";
+import React from 'react'
+import { useGetFilmGenresQuery } from '../../api/film.api'
+import { useActions, useAppSelector } from '../../hooks/redux'
+import { checkIfExists } from '../../utils/checkIfExists.util'
+import styles from './Details.module.scss'
+import { ReactComponent as StarEmptyImage } from '../../assets/icons/star-empty.svg'
+import { ReactComponent as StarYellowImage } from '../../assets/icons/star-yellow.svg'
 
 const Details = () => {
-  const { film, favorite_films } = useAppSelector((state) => state.film);
-  const { addToFavorite, removeFromFavorite } = useActions();
-  const { data } = useGetFilmGenresQuery();
+  const { film, favorite_films } = useAppSelector((state) => state.film)
+  const { addToFavorite, removeFromFavorite } = useActions()
+  const { data } = useGetFilmGenresQuery()
 
   const modifyReleaseDate = () => {
-    const splittedDate = film.release_date.split("-");
+    const splittedDate = film.release_date.split('-')
 
-    const date = `${splittedDate[2]}.${splittedDate[1]}.${splittedDate[0]}`;
+    const date = `${splittedDate[2]}.${splittedDate[1]}.${splittedDate[0]}`
 
-    return date;
-  };
+    return date
+  }
 
   const findGenres = () => {
-    const genreNames: string[] = [];
+    const genreNames: string[] = []
 
     film.genre_ids.forEach((id: number) => {
       if (data) {
-        const genre = data.genres.find((genre) => genre.id === id);
-        if (genre) genreNames.push(genre.name);
+        const genre = data.genres.find((genre) => genre.id === id)
+        if (genre) genreNames.push(genre.name)
       }
-    });
+    })
 
-    return genreNames;
-  };
+    return genreNames
+  }
 
-  const onFavoriteAddClick = (e: any) => {
-    e.stopPropagation();
-    addToFavorite(film);
-  };
-  const onFavoriteRemoveClick = (e: any) => {
-    e.stopPropagation();
-    removeFromFavorite({ id: film.id });
-  };
+  const onFavoriteAddClick = (
+    e: React.MouseEvent<SVGSVGElement, MouseEvent>
+  ) => {
+    e.stopPropagation()
+    addToFavorite(film)
+  }
+  const onFavoriteRemoveClick = (
+    e: React.MouseEvent<SVGSVGElement, MouseEvent>
+  ) => {
+    e.stopPropagation()
+    removeFromFavorite({ id: film.id })
+  }
 
   return (
     <div className={styles.wrapper}>
@@ -47,7 +51,7 @@ const Details = () => {
         <div className={styles.film__image}>
           <img
             src={`http://image.tmdb.org/t/p/w342${film.backdrop_path}`}
-            alt="film_poster"
+            alt='film_poster'
             className={styles.poster}
           />
         </div>
@@ -56,17 +60,13 @@ const Details = () => {
             <h1 className={styles.title}>{film.title}</h1>
             <button className={styles.add__favorite}>
               {checkIfExists(film, favorite_films) ? (
-                <img
-                  src={starYellowImage}
+                <StarYellowImage
                   className={styles.favorite__thumb}
-                  alt="add__favorite"
                   onClick={onFavoriteRemoveClick}
                 />
               ) : (
-                <img
-                  src={starEmptyImage}
+                <StarEmptyImage
                   className={styles.favorite__thumb}
-                  alt="add__favorite"
                   onClick={onFavoriteAddClick}
                 />
               )}
@@ -91,7 +91,7 @@ const Details = () => {
         <span className={styles.text}>{film.overview}</span>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Details;
+export default Details
